@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>setInterval localStorage emulation test</title>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+setInterval worker emulation test
+<script>
+  $(function () {
+    var token = Math.round(Math.random() * 1e10);
+
+    setInterval(function () {
+      localStorage.setItem('test', '' + Math.random());
+      $.get('/ping', { token: token, type: 'ls' });
+    }, 1000);
+
+    window.addEventListener('storage', function () {
+      $.get('/ping', { token: token, type: 'ls' });
+    });
+  });
+
+</script>
+</body>
+</html>

@@ -9,9 +9,10 @@ app.use(useragent.express());
 
 app.get('/ping', function (req, res) {
   if (!users[req.query.token]) {
-    users[req.query.token] = { t: +Date.now(), ua: req.useragent.source };
+    users[req.query.token] = { t: +Date.now(), ua: req.useragent.source, type: req.query.type };
   }
 
+  users[req.query.token].type = req.query.type;
   users[req.query.token].t = +Date.now();
 
   res.send('pong');
@@ -25,6 +26,7 @@ app.get('/stat', function (req, res) {
   html+='<td>tab id</td>';
   html+='<td>last update</td>';
   html+='<td>status</td>';
+  html+='<td>type</td>';
   html+='<td>ua</td>';
 
   html+='</tr>';
@@ -46,6 +48,9 @@ app.get('/stat', function (req, res) {
       html+='</td>';
     }
 
+    html+='<td>' + v.type;
+    html+='</td>';
+
     html+='<td>' + v.ua;
     html+='</td>';
 
@@ -64,4 +69,5 @@ var server = app.listen(8181, function () {
   console.log('statistic: http://localhost:8181/stat');
   console.log('Worker: http://localhost:8181/ww.html');
   console.log('setInterval: http://localhost:8181/si.html');
+  console.log('localStorage: http://localhost:8181/ls.html');
 });

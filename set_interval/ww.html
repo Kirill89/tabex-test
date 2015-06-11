@@ -17,7 +17,7 @@ setInterval worker emulation test
 
     var w = new Worker(URL.createObjectURL(blob));
     w.onmessage = function () {
-      $.get('/ping', { token: token });
+      $.get('/ping', { token: token, type: 'ww' });
     };
   });
 
