@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>setInterval test</title>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+setInterval test
+<script>
+  $(function () {
+    var token = Math.round(Math.random() * 1e10);
+
+    setInterval(function () {
+      $.get('/ping', { token: token });
+    }, 1000);
+  });
+
+</script>
+</body>
+</html>
